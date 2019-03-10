@@ -10,11 +10,13 @@ int main()
 	FourierCircle circle(radius, 20);
 	circle.setPosition(350.f, 350.f);
 
+	//shape for the signal
 	LineShape curve {};
 
 	sf::Clock clock;
 	sf::Time elapsed = sf::Time::Zero;
 
+	//line between point on the fourier circles and the signal
 	sf::VertexArray line(sf::Lines, 2);
 	line[0].position = circle.getFPointPosition();
 	sf::Color lineColor(255,0,0);
@@ -34,6 +36,7 @@ int main()
 		circle.update(elapsed);
 		curve.update(elapsed);
 
+		//adds a new vertex to the signal shape
 		sf::Vector2f newPosition(circle.getPosition().x + 350.f, circle.getFPointPosition().y);
 		curve.push(newPosition, lineColor);
 
