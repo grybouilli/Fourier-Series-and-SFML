@@ -3,26 +3,38 @@
 
 LineShape::LineShape()
 : mVertices {}
-{}
+{
+}
 
 LineShape::LineShape(size_t verticesCount)
 : mVertices(verticesCount)
-{}
+{
+}
 
 void LineShape::push(sf::Vector2f pos, sf::Color color)
 {
 	sf::Vertex vertex(pos, color);
-	mVertices.push_back(vertex);
+	mVertices.push(vertex);
+
+	if(mVertices.size() > 10000)
+	{
+		mVertices.pop();
+	}
 }
 
 void LineShape::push(sf::Vertex vertex)
 {
-	mVertices.push_back(vertex);
+	mVertices.push(vertex);
+
+	if(mVertices.size() > 10000)
+	{
+		mVertices.pop();
+	}
 }
 
 void LineShape::pop()
 {
-	mVertices.erase(mVertices.begin());
+	mVertices.pop();
 }
 
 void LineShape::update(sf::Time dt)
@@ -37,11 +49,6 @@ void LineShape::update(sf::Time dt)
 	}
 
 	mVertices[0].position.x += dt.asSeconds() * 100.f;
-
-	if(mVertices.size() > 10000)
-	{
-		pop();
-	}
 }
 
 void LineShape::draw(sf::RenderTarget& target, sf::RenderStates states) const

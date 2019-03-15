@@ -2,7 +2,7 @@
 #define GUARD_LINESHAPE_HPP
 
 #include <SFML/Graphics.hpp>
-#include <deque>
+#include "hdr/VertexDeque.hpp"
 
 class LineShape : public sf::Drawable, public sf::Transformable
 {
@@ -21,6 +21,6 @@ private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
-	std::vector<sf::Vertex>	mVertices;
+	VertexDeque	mVertices;
 };
 #endif
