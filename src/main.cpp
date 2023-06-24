@@ -8,6 +8,7 @@ int main()
 
 	float radius = 150.f;
 	FourierCircle circle(radius, 20);
+	circle.getFPointPosition();
 	circle.setPosition(350.f, 350.f);
 
 	//shape for the signal

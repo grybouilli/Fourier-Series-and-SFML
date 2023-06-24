@@ -26,10 +26,10 @@ FourierCircle::FourierCircle(float radius, int children, int n)
 	} else
 	{
 		mChild = nullptr;
+	}
 		mPoint = sf::CircleShape(5.f);
 		mPoint.setFillColor(sf::Color::White);
 		mPoint.setOrigin(5.f, 5.f);
-	}
 }
 
 void FourierCircle::setRadius(float radius)
@@ -59,23 +59,24 @@ sf::Vector2f FourierCircle::getFPointPosition() const
 {
 	sf::Vector2f position {};
 
-	if(mChildren > 0)
+	if(mChildren > 0 &&  mChild != nullptr)
 	{
 		sf::Transform transform = getTransform();
 		position = transform.transformPoint(mChild->getFPointPosition());
 	} else
 	{
 		sf::Transform transform = getTransform();
+		mPoint.getPosition();
 		return transform.transformPoint(mPoint.getPosition());
 	}
-
+	return position;
 }
 
 void FourierCircle::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();
 	target.draw(mCircle, states); //comment this line if you want to visualize only the final point
-	if(mChildren > 0)
+	if(mChild != nullptr)
 	{
 		mChild->draw(target,states);
 	} else
